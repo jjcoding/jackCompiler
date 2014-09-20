@@ -4,12 +4,17 @@ public class VMWriter
 {
 	private BufferedWriter bw;
 
+	/*
+	 * Creates a new file and prepares
+it for writing.
+	 */
 	public VMWriter(String out) throws IOException 
 	{
 		File outFile = new File(out);
 		bw = new BufferedWriter(new FileWriter(outFile.getAbsoluteFile()));
 	}
 
+	
 	public void writePush(String segment, int index) throws IOException 
 	{
 		String segm;

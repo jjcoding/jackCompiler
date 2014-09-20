@@ -17,6 +17,7 @@ public class JackTokenizer {
 
 	private int tokIndex;
 
+	// Constructor removes comments, opens the input file and gets ready to tokenize it
 	public JackTokenizer(String inFile)  throws Exception
 	{	
 		removeComments(inFile);  //  create inFileTemp.jack, the no-comment edition of original jack file
@@ -28,7 +29,7 @@ public class JackTokenizer {
 		tokIndex = 0;
 	}
 
-
+	// removes comments in the source code
 	public void removeComments(String fileName) throws Exception
 	{
 		boolean firstSlashFound = false;
@@ -154,11 +155,18 @@ public class JackTokenizer {
 	}
 	
 
+	// Do we have more tokens in the input?
 	public boolean hasMoreTokens() throws IOException 
 	{
 		return br.ready();
 	}
 
+	/* Gets the next token from the input
+	and makes it the current token. This
+	method should only be called if
+	hasMoreTokens() is true. Initially
+	there is no current token.
+	*/
 	public void advance() throws IOException 
 	{
 		if(!hasMoreTokens())
@@ -245,6 +253,7 @@ public class JackTokenizer {
 			tokIndex = 0;
 	}
 
+	//Returns the type of the current token.
 	public String tokenType() 
 	{	
 		
@@ -280,28 +289,55 @@ public class JackTokenizer {
 		return null;
 	}
 
-
+	
+	/*
+	 * Returns the keyword which is the
+     * current token. Should be called only
+	 * when tokenType() is KEYWORD.
+	 */
 	public String keyWord() 
 	{
 		return currToken;
 	}
 
-
+	
+	/*
+	 * Returns the character which is the
+current token. Should be called only
+when tokenType() is SYMBOL.
+	 */
 	public char symbol() 
 	{
 		return currToken.charAt(0);
 	}
 
+	/*
+	 * Returns the integer value of the
+current token. Should be called only
+when tokenType() is INT_CONST.
+	 */
 	public int intVal() 
 	{
 		return Integer.parseInt(currToken);
 	}
 
+
+	/*
+	 * Returns the string value of the current
+token, without the double quotes.
+Should be called only when
+tokenType() is STRING_CONST.
+	 */
 	public String stringVal() 
 	{	
 		return currToken.substring(1, currToken.length()-1);
 	}
 
+	/*
+	 * Returns the identifier which is the
+current token. Should be called only
+when tokenType() is IDENTIFIER.
+	 */
 	public String identifier() 
 	{	
 		return currToken;

@@ -1,6 +1,5 @@
 
 import java.util.Hashtable;
-
 import java.util.Enumeration;
 
 
@@ -36,6 +35,10 @@ public class SymbolTable
 	private int staticIndex, fieldIndex, argIndex, varIndex;
 
 
+	/*
+	 * Creates a new empty symbol
+table.
+	 */
 	public SymbolTable() 
 	{
 		classScope = new Hashtable<String, Properties>();
@@ -47,7 +50,12 @@ public class SymbolTable
 		inSubScope = false;
 	}
 
-
+	
+	/*
+	 * Starts a new subroutine scope
+(i.e., resets the subroutine’s
+symbol table).
+	 */
 	public void startSubroutine(String subType) 
 	{
 		subScope.clear();
@@ -65,6 +73,15 @@ public class SymbolTable
 	}
 
 
+	/*
+	 * Defines a new identifier of a
+given name, type, and kind
+and assigns it a running index.
+STATIC and FIELD identifiers
+have a class scope, while ARG
+and VAR identifiers have a
+subroutine scope.
+	 */
 	public void Define(String name, String type, String kind) {
 
 		Properties tmp = null;
@@ -99,9 +116,13 @@ public class SymbolTable
 	}
 
 
-	
-
-
+	/*
+	 * Returns the kind of the named
+identifier in the current scope.
+If the identifier is unknown in
+the current scope, returns
+NONE.
+	 */
 	public String KindOf(String name) 
 	{
 
@@ -119,7 +140,10 @@ public class SymbolTable
 		return "NONE";
 	}
 
-
+	/*
+	 * Returns the type of the named
+identifier in the current scope.
+	 */
 	public String TypeOf(String name) 
 	{
 		if (inSubScope)
@@ -137,6 +161,10 @@ public class SymbolTable
 
 	}
 
+	/*
+	 * Returns the index assigned to
+the named identifier.
+	 */
 	public int IndexOf(String name) 
 	{
 
@@ -154,6 +182,12 @@ public class SymbolTable
 	}
 	
 	
+	/*
+	 * Returns the number of
+variables of the given kind
+already defined in the current
+scope.
+	 */
 	public int VarCount(String kind) 
 	{
 		int count = 0;
